@@ -1,0 +1,82 @@
+:root {
+    --darkBlue: darkblue;
+    --lightBlue: cyan;
+    --white: white;
+    --darkBG: black;
+}
+
+body {
+    background: var(--darkBG);
+}
+
+/* Flex Box */
+.flexContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    background: var(--darkBlue);
+}
+
+.flexBody {
+    display: flex;
+    flex-direction: row;
+
+    background: var(--darkBG);
+}
+
+.flexColumn20 {
+    display: flex;
+    flex-direction: column;
+    background: var(--darkBG);
+    width: 20%;
+    margin: 10px 0px 0px 10px; /* top, right, bottom, left */
+}
+
+.flexColumn80 {
+    display: flex;
+    flex-direction: column;
+    background: var(--darkBG);
+    width: 80%;
+    padding: 10px;
+    margin: 0px 2% 0px 0px; /* top, right, bottom, left */
+}
+
+/* Side NAV Items */
+aside textarea {
+    margin: 10px 0px 10px 0px;  /* top, right, bottom, left */
+}
+
+aside button {
+    margin: 0px 0px 5px 0px;    /* top, right, bottom, left */
+}
+
+aside hr {
+    width: 100%;
+}
+
+/* Weather DATA output */
+
+#today {
+    border: 2px solid red;
+    padding: 10px;
+    width: 100%;
+}
+
+#forecast {
+    border: 2px solid red;
+    padding: 10px;
+    width: 100%;
+}
+
+/* Headings */
+h1 {
+    color: var(--white);
+    font-size: 35px;
+    padding: 10px;
+}
+
+h2 {
+    color: var(--white);
+    font-size: 30px;
+}

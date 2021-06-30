@@ -8,13 +8,44 @@
 <head>
 
 <body>
-    <header class="flexContainer">
-        <h1>Weather Dashboard</h1>
+    <header>
+        <nav class="flexContainer">
+            <h1>Weather Dashboard</h1>
+        </nav>
     </header>
 
-    <main class="flexContainer">
+<div class="flexBody">
+    <aside class="flexColumn20">
+        <h2>Search for a City:</h2>
+        <textarea placeholder="Melbourne..."></textarea>
+        <button>Search</button>
+        <hr>
+        <ul id="history"></ul>
+    </aside>
 
+    <main class="flexColumn80">
+        <div id="today">
+            <h2>Atlanta</h2>
+            <ul>
+                <li>Temp:</li>
+                <li>Wind:</li>
+                <li>Humidity:</li>
+                <li>UV Index:</li>
+            </ul>
+        </div>
+        <div id="forecast">
+            <h2>5-Day Forecast:</h2>
+            <ul>
+                <li>Day 1</li>
+                <li>Day 2</li>
+                <li>Day 3</li>
+                <li>Day 4</li>
+                <li>Day 5</li>
+            </ul>
+        </div>
     </main>
+</div>
+
 </body>
 
 <script src="./Assets/js/script.js"></script>
