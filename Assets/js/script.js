@@ -63,6 +63,8 @@ function weatherDisplay (data) {
     // Create <li> for UV Index
     var subnode = document.createElement("li");
     var textnode = document.createTextNode("UV Index: " + data.current.uvi);
+    subnode.setAttribute('class', 'uv');    // Append a class for CSS targeting
+    // if uv > x highUV, if uv > smallX lowUV??
     subnode.appendChild(textnode);
     node.appendChild(subnode);
 
@@ -88,6 +90,7 @@ function historyDisplay () {
         var textnode = document.createTextNode(historyCity[i]);     // Create a textnode of each <i>ndex of the cities list 
         node.appendChild(textnode);                                 // Attach the text to the <li>
         node.setAttribute('class', 'historyList');                  // Add a class to the <li> elements for CSS targeting
+        node.setAttribute('data-index', historyCity[i]);            // Add a <data-index> value of the current city
         historyINJ.appendChild(node);                               // Attach the <li> to the DOM
         var br = document.createElement("br");                      // Create a line break between entries
         historyINJ.appendChild(br);                                 // Attach the line break to each <li>
@@ -110,8 +113,10 @@ function historyUpdate (lat, lon) {
 }
 
 // Resolve Lat&Lon for User input Location
-function locationLookup () {
-    fetch(nominatimUrl + userQuery.value)
+function locationLookup (url, city) {
+    console.log(city);
+    console.log(url+city);
+    fetch(url + city)
     .then(function (response) { return response.json() } )
     .then(function (data) {
         var lat = data[0].lat;                              // Extract Latitudinal data for user_search
@@ -126,7 +131,16 @@ function locationLookup () {
 searchCall.addEventListener("click", function(event) {
     event.preventDefault();
 
-    locationLookup();
+    locationLookup(nominatimUrl, userQuery.value);
+})
+
+// History Search Call
+historyINJ.addEventListener("click", function(event) {
+    event.preventDefault();
+
+    var call = event.target.dataset.index;
+    console.log(call);
+    locationLookup(nominatimUrl, call);
 })
 
 historyDisplay();
