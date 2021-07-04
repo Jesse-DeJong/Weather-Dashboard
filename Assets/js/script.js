@@ -12,7 +12,10 @@ weatherUrl3 = "&appid=" + apiKey;
 // Nominatim Reverse Geosearch
 nominatimUrl = "https://nominatim.openstreetmap.org/search?format=json&city="
 
-// History Functionality
+// History Functionality - would be cleaner/more compact as an object
+history = ["Melbourne",];
+historyLAT = ["-37.8142176",];
+historyLON = ["144.9631608",];
 
 function weatherLookup (lat, lon) {
     fetch(weatherUrl1 + lat + weatherUrl2 + lon + weatherUrl3) // Combine API call with lat and lon data from previous geosearch
@@ -29,6 +32,10 @@ function locationLookup () {
     .then(function (data) {
         var lat = data[0].lat;                              // Extract Latitudinal data for user_search
         var lon = data[0].lon;                              // Extract Longitudinal data for user_search
+console.log(data);
+        history.push(userQuery);                            // Add the user searched location to the current array index
+        historyLAT.push(lat);                               // Add the resolved Latitude to the array for the current index
+        historyLON.push(lon);                               // Add the resolved Longitude to the array for the current index
 
         weatherLookup(lat, lon);                            // Parse lat & lon into weather API
     })
