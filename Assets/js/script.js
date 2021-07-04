@@ -15,15 +15,18 @@ var nominatimUrl = "https://nominatim.openstreetmap.org/search?format=json&city=
 // History Functionality - would be cleaner/more compact as an object
     if (localStorage.getItem("historyCity") == null) {                  // Check for locally stored history data
         var historyCity = [];                                           // IF none is found create the variable as an empty array
-    } else { var historyCity = localStorage.getItem("historyCity"); }   // IF history is found then fetch the data and store it in the array
+    } else { var historyCity = localStorage.getItem("historyCity")      // IF history is found then fetch the data and store it in the array
+    .split(",") ; }                                                     // Split the returned string by the "," into an array
 
     if (localStorage.getItem("historyLAT") == null) {
         var historyLAT = [];
-    } else { var historyLAT = localStorage.getItem("historyLAT"); }
+    } else { var historyLAT = localStorage.getItem("historyLAT")
+    .split(",") ; }
 
     if (localStorage.getItem("historyLON") == null) {
         var historyLON = [];
-    } else { var historyLON = localStorage.getItem("historyLON"); }
+    } else { var historyLON = localStorage.getItem("historyLON")
+    .split(",") ; }
 
 function weatherLookup (lat, lon) {
     fetch(weatherUrl1 + lat + weatherUrl2 + lon + weatherUrl3) // Combine API call with lat and lon data from previous geosearch
@@ -35,6 +38,8 @@ function weatherLookup (lat, lon) {
 
 function historyUpdate (lat, lon) {
 
+    if (!historyCity.includes(userQuery.value) && historyCity.length < 10) {       // IF the user search city is not already in the history array AND there are less than 10 stored cities >then> add it
+
     historyCity.push(userQuery.value);                  // Add the user searched location to the current array index
     historyLAT.push(lat);                               // Add the resolved Latitude to the array for the current index
     historyLON.push(lon);                               // Add the resolved Longitude to the array for the current index
@@ -42,6 +47,7 @@ function historyUpdate (lat, lon) {
     localStorage.setItem("historyCity", historyCity);   // Update Cities array in local storage
     localStorage.setItem("historyLAT", historyLAT);     // Update Latitude array in local storage
     localStorage.setItem("historyLON", historyLON);     // Update Longitude array in local storage
+  }
 }
 
 // Resolve Lat&Lon for User input Location
