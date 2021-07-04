@@ -1,5 +1,5 @@
 // DOM selection for content injection
-var history = document.getElementById('history');
+var historyINJ = document.getElementById('history');
 var searchCall = document.getElementById('searchBtn');
 var userQuery = document.getElementById('userLocQuery');
 
@@ -37,21 +37,16 @@ function weatherLookup (lat, lon) {
 }
 
 function historyDisplay () {
-    var removal = document.getElementById('history').children.length;
-    for ( i = 0; i < removal; i++ ) {
-        document.getElementById('history').removeChild(document.getElementById('history').childNodes[i]);
-    }
-    
+    historyINJ.innerHTML = "";                                      // Reset the <ul> to clear the currently displayed list so that overlaps do not occur
 
     for ( i = 0; i < historyCity.length; i++ ) {                    // For all entries retrieved from localStorage for cities
         var node = document.createElement("li");                    // Create an <li>
         var textnode = document.createTextNode(historyCity[i]);     // Create a textnode of each <i>ndex of the cities list 
         node.appendChild(textnode);                                 // Attach the text to the <li>
         node.setAttribute('class', 'historyList');                  // Add a class to the <li> elements for CSS targeting
-        document.getElementById('history').appendChild(node);       // Attach the <li> to the DOM
+        historyINJ.appendChild(node);                               // Attach the <li> to the DOM
         var br = document.createElement("br");                      // Create a line break between entries
-        document.getElementById('history').appendChild(br);         // Attach the line break to each <li>
-        // For some reason this only functions if the DOM tree is used and not the already established variable HISTORY
+        historyINJ.appendChild(br);                                 // Attach the line break to each <li>
     }
 }
 
