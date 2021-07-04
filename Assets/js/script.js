@@ -2,12 +2,14 @@
 var historyINJ = document.getElementById('history');
 var searchCall = document.getElementById('searchBtn');
 var userQuery = document.getElementById('userLocQuery');
+var todayINJ = document.getElementById('today');
+var forecastINJ = document.getElementById('forecast');
 
 // One Call API - Open Weather
 var apiKey = "83eafbf0136fddba078f207e73c99163";
 var weatherUrl1 = "https://api.openweathermap.org/data/2.5/onecall?lat=";
 var weatherUrl2 = "&lon=";
-var weatherUrl3 = "&appid=" + apiKey;
+var weatherUrl3 = "&units=metric&appid=" + apiKey;
 
 // Nominatim Reverse Geosearch
 var nominatimUrl = "https://nominatim.openstreetmap.org/search?format=json&city=";
@@ -28,11 +30,53 @@ var nominatimUrl = "https://nominatim.openstreetmap.org/search?format=json&city=
     } else { var historyLON = localStorage.getItem("historyLON")
     .split(",") ; }
 
+function weatherDisplay (data) {
+    todayINJ.innerHTML = "";    // Clear any data already displayed
+
+    // Create DOM for Searched Name
+    var node = document.createElement("h2");
+    var textnode = document.createTextNode(data.timezone);
+    node.appendChild(textnode);
+    todayINJ.appendChild(node);
+
+    // Create <ul> on the DOM
+    var node = document.createElement("ul");
+
+    // Create <li> for TEMP
+    var subnode = document.createElement("li");
+    var textnode = document.createTextNode("Temp: " + data.current.temp + '°C');
+    subnode.appendChild(textnode);
+    node.appendChild(subnode);
+
+    // Create <li> for WIND
+    var subnode = document.createElement("li");
+    var textnode = document.createTextNode("Wind: " + data.current.wind_speed + ' Km/h');
+    subnode.appendChild(textnode);
+    node.appendChild(subnode);
+
+    // Create <li> for Humidity
+    var subnode = document.createElement("li");
+    var textnode = document.createTextNode("Humidity: " + data.current.humidity + ' %');
+    subnode.appendChild(textnode);
+    node.appendChild(subnode);
+
+    // Create <li> for UV Index
+    var subnode = document.createElement("li");
+    var textnode = document.createTextNode("UV Index: " + data.current.uvi);
+    subnode.appendChild(textnode);
+    node.appendChild(subnode);
+
+    // Append <ul> to the DOM
+    todayINJ.appendChild(node);
+}
+
 function weatherLookup (lat, lon) {
     fetch(weatherUrl1 + lat + weatherUrl2 + lon + weatherUrl3) // Combine API call with lat and lon data from previous geosearch
     .then(function (response) { return response.json() } )
     .then(function (data) {
         console.log(data);
+        weatherDisplay(data);                                  // Parse the returned API data into the display function
+        weatherDisplayForecast(data);                          // Parse the returned API data into the 5 day forecast function
     })
 }
 
