@@ -58,13 +58,13 @@ aside hr {
 /* Weather DATA output */
 
 #today {
-    border: 2px solid red;
+    /* border: 2px solid red; */
     padding: 10px;
     width: 100%;
 }
 
 #forecast {
-    border: 2px solid red;
+    /* border: 2px solid red; */
     padding: 10px;
     width: 100%;
 }
@@ -89,4 +89,15 @@ h2 {
     background: grey;
 
     font-size: 20px;
+}
+
+#forecast {
+    display: flex;
+    flex-direction: row;
+}
+
+.forecastUL {
+    margin: 5px;
+    padding: 5px;
+    background: red;
 }

@@ -72,6 +72,53 @@ function weatherDisplay (data) {
     todayINJ.appendChild(node);
 }
 
+function weatherDisplayForecast (data) {
+    forecastINJ = "";   // Clear any data already displayed
+
+    // Create DOM for Searched Name
+    var node = document.createElement("h2");
+    var textnode = document.createTextNode("5-Day Forecast:");
+    node.appendChild(textnode);
+    document.getElementById('forecast').appendChild(node);
+
+    for ( i = 0; i < 5; i++ ) {
+    // Create <ul> on the DOM
+    var node = document.createElement("ul");
+    node.setAttribute('class', 'forecastUL');
+
+    // Extract MIN Temp
+    // Create an <li> for the data 
+    var subnode = document.createElement("li");
+    // Create the text for the <li>
+    var textnode = document.createTextNode("Min Temp: " + data.daily[i].temp.min + '°C');
+    // Attach the text to the <li>
+    subnode.appendChild(textnode);
+    // Attach the <li> to the <ul>
+    node.appendChild(subnode);
+
+    // Extract MAX Temp
+    var subnode = document.createElement("li");
+    var textnode = document.createTextNode("Max Temp: " + data.daily[i].temp.max + '°C');
+    subnode.appendChild(textnode);
+    node.appendChild(subnode);
+    
+    // Extract Wind Speed
+    var subnode = document.createElement("li");
+    var textnode = document.createTextNode("Wind: " + data.daily[i].wind_speed + ' Km/h');
+    subnode.appendChild(textnode);
+    node.appendChild(subnode);
+
+    // Extract Humidity
+    var subnode = document.createElement("li");
+    var textnode = document.createTextNode("Humidity: " + data.daily[i].humidity + '%');
+    subnode.appendChild(textnode);
+    node.appendChild(subnode);
+    
+    // Append <ul> to the DOM
+    document.getElementById('forecast').appendChild(node);
+  }
+}
+
 function weatherLookup (lat, lon) {
     fetch(weatherUrl1 + lat + weatherUrl2 + lon + weatherUrl3) // Combine API call with lat and lon data from previous geosearch
     .then(function (response) { return response.json() } )
