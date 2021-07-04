@@ -80,3 +80,13 @@ h2 {
     color: var(--white);
     font-size: 30px;
 }
+
+.historyList {
+    text-align: center;
+    margin: 2px;
+    padding: 2px;
+    border-radius: 20px;
+    background: grey;
+
+    font-size: 20px;
+}

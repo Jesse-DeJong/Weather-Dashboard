@@ -36,6 +36,25 @@ function weatherLookup (lat, lon) {
     })
 }
 
+function historyDisplay () {
+    var removal = document.getElementById('history').children.length;
+    for ( i = 0; i < removal; i++ ) {
+        document.getElementById('history').removeChild(document.getElementById('history').childNodes[i]);
+    }
+    
+
+    for ( i = 0; i < historyCity.length; i++ ) {                    // For all entries retrieved from localStorage for cities
+        var node = document.createElement("li");                    // Create an <li>
+        var textnode = document.createTextNode(historyCity[i]);     // Create a textnode of each <i>ndex of the cities list 
+        node.appendChild(textnode);                                 // Attach the text to the <li>
+        node.setAttribute('class', 'historyList');                  // Add a class to the <li> elements for CSS targeting
+        document.getElementById('history').appendChild(node);       // Attach the <li> to the DOM
+        var br = document.createElement("br");                      // Create a line break between entries
+        document.getElementById('history').appendChild(br);         // Attach the line break to each <li>
+        // For some reason this only functions if the DOM tree is used and not the already established variable HISTORY
+    }
+}
+
 function historyUpdate (lat, lon) {
 
     if (!historyCity.includes(userQuery.value) && historyCity.length < 10) {       // IF the user search city is not already in the history array AND there are less than 10 stored cities >then> add it
@@ -48,6 +67,7 @@ function historyUpdate (lat, lon) {
     localStorage.setItem("historyLAT", historyLAT);     // Update Latitude array in local storage
     localStorage.setItem("historyLON", historyLON);     // Update Longitude array in local storage
   }
+  historyDisplay();
 }
 
 // Resolve Lat&Lon for User input Location
@@ -69,3 +89,5 @@ searchCall.addEventListener("click", function(event) {
 
     locationLookup();
 })
+
+historyDisplay();
