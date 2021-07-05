@@ -79,8 +79,16 @@ h1 {
 }
 
 h2 {
+    display: inline-block;
     color: var(--white);
     font-size: 30px;
+}
+
+.countryCity {
+display: inline-block;
+
+line-height: 100px;
+vertical-align: middle;
 }
 
 .historyList {

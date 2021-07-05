@@ -35,16 +35,18 @@ var nominatimUrl = "https://nominatim.openstreetmap.org/search?format=json&city=
 function weatherDisplay (data) {
     todayINJ.innerHTML = "";    // Clear any data already displayed
     
-    // Create DOM for Searched Name
-    var url = weatherIconUrl1 + data.current.weather[0].icon + weatherIconUrl2;
-    var iconNode = document.createElement("i");
-    iconNode.setAttribute('href', url);
+    // Create DOM for Weather Image
+    var url = weatherIconUrl1 + data.current.weather[0].icon + weatherIconUrl2; // Construct the URL for the source image
+    var iconNode = document.createElement("img");                               // Create a new <IMG> element to host the weather image
+    iconNode.setAttribute('src', url);                                          // Populate the img source with the url
     
+    // Create DOM for Searched Name
     var node = document.createElement("h2");
     var textnode = document.createTextNode(data.timezone + " (" + window.value + ") ");
-    node.appendChild(textnode);
-    node.appendChild(iconNode);
-    todayINJ.appendChild(node);
+    node.setAttribute('class', 'countryCity'); // Add a class for CSS targeting
+    node.appendChild(textnode);     // Append the City/Date text
+    node.appendChild(iconNode);     // Append the Image
+    todayINJ.appendChild(node);     // Append the <h2> to the DOM
 
     // Create <ul> on the DOM
     var node = document.createElement("ul");
@@ -107,15 +109,17 @@ function weatherDisplayForecast (data) {
 
     // Repeat 5x for the 5-day Forecast
     for ( i = 0; i < 5; i++ ) {
+   
     // Create <ul> on the DOM
     var node = document.createElement("ul");
     node.setAttribute('class', 'forecastUL');
 
     // Extract Weather Icon
-    var subnode = document.createElement("i");
-    var textnode = document.createTextNode(data.daily[i].weather[0].icon);
-    subnode.appendChild(textnode);
-    node.appendChild(subnode);
+    // Create DOM for Weather Image
+    var url = weatherIconUrl1 + data.daily[i].weather[0].icon + weatherIconUrl2;    // Construct the URL for the source image
+    var iconNode = document.createElement("img");                                   // Create a new <IMG> element to host the weather image
+    iconNode.setAttribute('src', url);                                              // Populate the img source with the url
+    node.appendChild(iconNode);                                                     // Append image to the UL
 
     // Extract MIN Temp
     // Create an <li> for the data 
