@@ -10,6 +10,8 @@ var apiKey = "83eafbf0136fddba078f207e73c99163";
 var weatherUrl1 = "https://api.openweathermap.org/data/2.5/onecall?lat=";
 var weatherUrl2 = "&lon=";
 var weatherUrl3 = "&units=metric&appid=" + apiKey;
+var weatherIconUrl1 = "http://openweathermap.org/img/wn/";
+var weatherIconUrl2 = "@2x.png";
 
 // Nominatim Reverse Geosearch
 var nominatimUrl = "https://nominatim.openstreetmap.org/search?format=json&city=";
@@ -34,9 +36,14 @@ function weatherDisplay (data) {
     todayINJ.innerHTML = "";    // Clear any data already displayed
     
     // Create DOM for Searched Name
+    var url = weatherIconUrl1 + data.current.weather[0].icon + weatherIconUrl2;
+    var iconNode = document.createElement("i");
+    iconNode.setAttribute('href', url);
+    
     var node = document.createElement("h2");
-    var textnode = document.createTextNode(data.timezone + " (" + window.value + ")" + data.current.weather[0].icon);
+    var textnode = document.createTextNode(data.timezone + " (" + window.value + ") ");
     node.appendChild(textnode);
+    node.appendChild(iconNode);
     todayINJ.appendChild(node);
 
     // Create <ul> on the DOM
@@ -62,9 +69,21 @@ function weatherDisplay (data) {
 
     // Create <li> for UV Index
     var subnode = document.createElement("li");
-    var textnode = document.createTextNode("UV Index: " + data.current.uvi);
-    subnode.setAttribute('class', 'uv');    // Append a class for CSS targeting
-    // if uv > x highUV, if uv > smallX lowUV??
+    var textnode = document.createTextNode(data.current.uvi);
+
+    // Append a class for CSS targeting based on UV level
+    if (data.current.uvi < 3) {
+        subnode.setAttribute('class', 'uv uvLOW');
+    } else if (data.current.uvi < 6) {
+        subnode.setAttribute('class', 'uv uvMOD');
+    } else if (data.current.uvi < 8) {
+        subnode.setAttribute('class', 'uv uvHIGH');
+    } else if (data.current.uvi < 11) {
+        subnode.setAttribute('class', 'uv uvVERYHIGH');
+    } else {
+        subnode.setAttribute('class', 'uvEXTREME');
+    }
+
     subnode.appendChild(textnode);
     node.appendChild(subnode);
 

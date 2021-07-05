@@ -106,3 +106,41 @@ h2 {
 .forecastUL li {
     padding: 10px;
 }
+
+#today ul {
+    margin-top: 5px;
+}
+
+#today li {
+    padding: 10px;
+}
+
+/* UV Colour Adjustment */
+.uv {
+    display: inline-block;
+    border-radius: 5px;
+}
+
+.uvLOW {
+    background: green;
+}
+
+.uvMOD {
+    background: yellow;
+}
+
+.uvHIGH {
+    background: orange;
+}
+
+.uvVERYHIGH {
+    background: orangered;
+}
+
+.uvEXTREME {
+    background: red;
+}
+
+.uv::before {
+    content: "UV Index: ";
+}
