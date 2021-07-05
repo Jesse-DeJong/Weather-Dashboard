@@ -92,7 +92,7 @@ function weatherDisplay (data) {
 }
 
 function weatherDisplayForecast (data) {
-    forecastINJ = "";   // Clear any data already displayed
+    document.getElementById('forecast').innerHTML = "";   // Clear any data already displayed
 
     // Create DOM for Searched Name
     var node = document.createElement("h2");
@@ -100,6 +100,12 @@ function weatherDisplayForecast (data) {
     node.appendChild(textnode);
     document.getElementById('forecast').appendChild(node);
 
+    // Create an additional <DIV> for Proper Flex display
+    var node = document.createElement("div");
+    node.setAttribute('class', 'forecastDIV');
+    document.getElementById('forecast').appendChild(node);
+
+    // Repeat 5x for the 5-day Forecast
     for ( i = 0; i < 5; i++ ) {
     // Create <ul> on the DOM
     var node = document.createElement("ul");
@@ -140,7 +146,7 @@ function weatherDisplayForecast (data) {
     node.appendChild(subnode);
     
     // Append <ul> to the DOM
-    document.getElementById('forecast').appendChild(node);
+    document.getElementById('forecast').childNodes[1].appendChild(node);
   }
 }
 
