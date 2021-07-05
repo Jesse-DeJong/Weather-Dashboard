@@ -32,10 +32,10 @@ var nominatimUrl = "https://nominatim.openstreetmap.org/search?format=json&city=
 
 function weatherDisplay (data) {
     todayINJ.innerHTML = "";    // Clear any data already displayed
-
+    
     // Create DOM for Searched Name
     var node = document.createElement("h2");
-    var textnode = document.createTextNode(data.timezone);
+    var textnode = document.createTextNode(data.timezone + " (" + window.value + ")" + data.current.weather[0].icon);
     node.appendChild(textnode);
     todayINJ.appendChild(node);
 
@@ -85,6 +85,12 @@ function weatherDisplayForecast (data) {
     // Create <ul> on the DOM
     var node = document.createElement("ul");
     node.setAttribute('class', 'forecastUL');
+
+    // Extract Weather Icon
+    var subnode = document.createElement("i");
+    var textnode = document.createTextNode(data.daily[i].weather[0].icon);
+    subnode.appendChild(textnode);
+    node.appendChild(subnode);
 
     // Extract MIN Temp
     // Create an <li> for the data 
@@ -190,4 +196,16 @@ historyINJ.addEventListener("click", function(event) {
     locationLookup(nominatimUrl, call);
 })
 
-historyDisplay();
+// Date Set - Moment.js
+function getDate() {
+    var currentDate = moment().format("D/M/YYYY");
+    window.value = currentDate;
+} 
+
+// Initialisation calls
+function init () {
+    historyDisplay();
+    getDate();
+}
+
+init();

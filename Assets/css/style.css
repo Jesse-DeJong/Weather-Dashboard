@@ -1,5 +1,6 @@
 :root {
     --darkBlue: darkblue;
+    --darkdarkblue: rgb(2, 2, 44);
     --lightBlue: cyan;
     --white: white;
     --darkBG: black;
@@ -99,5 +100,9 @@ h2 {
 .forecastUL {
     margin: 5px;
     padding: 5px;
-    background: red;
+    background: var(--darkdarkblue);
+}
+
+.forecastUL li {
+    padding: 10px;
 }
