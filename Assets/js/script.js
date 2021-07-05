@@ -108,11 +108,18 @@ function weatherDisplayForecast (data) {
     document.getElementById('forecast').appendChild(node);
 
     // Repeat 5x for the 5-day Forecast
-    for ( i = 0; i < 5; i++ ) {
+    for ( i = 1; i < 6; i++ ) { // As i is used in the moment calc it needs to recur 5 times (days) and start from 1 (one day)
    
     // Create <ul> on the DOM
     var node = document.createElement("ul");
     node.setAttribute('class', 'forecastUL');
+
+    // Add the Date
+    var date = moment().add(i, 'days').format("D/M/YYYY");
+    var subnode = document.createElement("li");
+    var textnode = document.createTextNode(date);
+    subnode.appendChild(textnode);
+    node.appendChild(subnode);
 
     // Extract Weather Icon
     // Create DOM for Weather Image
